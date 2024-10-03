@@ -1,0 +1,24 @@
+.hero {
+  display: flex;
+  justify-content: center;
+}
+.hero__content {
+  position: relative;
+  max-width: 956px;
+  width: 100%;
+  text-align: center;
+  padding: 0 1rem;
+}
+.hero__content-icon {
+  display: none;
+  position: absolute;
+  top: -12px;
+  right: 130px;
+  width: 40px;
+}
+
+@media (min-width: 1200px) {
+  .hero__content-icon {
+    display: block;
+  }
+}

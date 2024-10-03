@@ -1,0 +1,31 @@
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form__row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form__row label {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+}
+.form__row input,
+.form__row textarea {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #eeeeee;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: inherit;
+  line-height: 21px;
+  padding: 4px 10px;
+}
+.form__row textarea {
+  height: 112px;
+  resize: vertical;
+}
