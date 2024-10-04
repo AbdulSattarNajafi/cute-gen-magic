@@ -2,9 +2,25 @@ import { FaArrowRight } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import ImagePicker from '../image-picker/ImagePicker';
 import useSteps from '../../hooks/useSteps';
+import { useState } from 'react';
 
 function StepsOne() {
   const { nextStep } = useSteps();
+  const [images, setImages] = useState(Array(10).fill(null));
+  const uploadedImages = images.filter((image) => image !== null);
+
+  const handleImageSelected = (index, file) => {
+    const updatedImages = [...images];
+    updatedImages[index] = file;
+    setImages(updatedImages);
+  };
+
+  const handleSubmit = () => {
+    console.log(uploadedImages);
+    nextStep();
+
+    // Submit the Form
+  };
 
   return (
     <div className='step'>
@@ -34,7 +50,11 @@ function StepsOne() {
         </ul>
 
         <div className='step__points-button'>
-          <button className='step__points-btn' onClick={nextStep}>
+          <button
+            className='step__points-btn'
+            onClick={handleSubmit}
+            disabled={uploadedImages.length === 0}
+          >
             <span>Next</span>
             <span className='icon'>
               <FaArrowRight />
@@ -43,18 +63,10 @@ function StepsOne() {
         </div>
       </div>
 
-      {/* ============== Image Picker ================== */}
       <div className='image__pickers'>
-        <ImagePicker />
-        <ImagePicker />
-        <ImagePicker />
-        <ImagePicker />
-        <ImagePicker />
-        <ImagePicker />
-        <ImagePicker />
-        <ImagePicker />
-        <ImagePicker />
-        <ImagePicker />
+        {images.map((_, index) => (
+          <ImagePicker key={index} onImageSelected={(file) => handleImageSelected(index, file)} />
+        ))}
       </div>
     </div>
   );

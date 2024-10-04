@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
+import PropTypes from 'prop-types';
 import './image-picker.css';
 
-const ImagePicker = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+const ImagePicker = ({ onImageSelected }) => {
+  const [, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-
-  console.log(selectedImage);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -17,12 +16,14 @@ const ImagePicker = () => {
       };
       reader.readAsDataURL(file);
       setSelectedImage(file);
+      onImageSelected(file);
     }
   };
 
   const handleImageRemove = () => {
     setSelectedImage(null);
     setImagePreview(null);
+    onImageSelected(null);
   };
 
   return (
@@ -47,6 +48,10 @@ const ImagePicker = () => {
       )}
     </div>
   );
+};
+
+ImagePicker.propTypes = {
+  onImageSelected: PropTypes.func.isRequired,
 };
 
 export default ImagePicker;
