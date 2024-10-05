@@ -26,6 +26,7 @@
 
 .modal__video video {
   width: 100%;
+  /* aspect-ratio: 4/3; */
   height: 100%;
   object-fit: cover;
   border-radius: 15px;

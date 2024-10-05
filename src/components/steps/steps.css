@@ -21,6 +21,9 @@
 .steps__header {
   display: flex;
   justify-content: space-between;
+  max-width: 1282px;
+  width: 100%;
+  margin: 0 auto;
   padding: 16px;
 }
 .steps__header-btn {
@@ -296,10 +299,10 @@
     justify-content: flex-start;
   }
   .step__points-button {
-    margin-top: 40px;
+    /* margin-top: 40px; */
   }
   .step__points-checkbox {
-    margin-top: 50px;
+    /* margin-top: 50px; */
   }
 
   .step__points-checkbox-wrapper {
@@ -331,7 +334,7 @@
   }
 
   .step__points-button {
-    margin-top: 50px;
+    /* margin-top: 50px; */
   }
   .step__points-list {
     gap: 20px;
