@@ -2,45 +2,64 @@ import { FaArrowRight, FaPlay, FaChevronRight } from 'react-icons/fa6';
 import ReactPlayer from 'react-player';
 import { default as SlickSlider } from 'react-slick';
 import { useState } from 'react';
+import './slider.css';
 
-import AiIcon from './../../assets/icons/ai.png';
-import Image1 from './../../assets/images/reference-image.jpg';
-import BabyVideo from './../../assets/videos/football-1.mp4';
-import BabyFootball from './../../assets/images/baby-football.jpg';
-import Baby1 from './../../assets/images/reference-image3.jpg';
-import Baby2 from './../../assets/images/reference-image2.jpg';
-import Baby3 from './../../assets/images/reference-image.jpg';
-
-import Baby4 from './../../assets/images/baby-football.jpg';
-import Baby5 from './../../assets/images/baby-swat.jpg';
-import Baby6 from './../../assets/images/baby-soccor.jpg';
-import Baby7 from './../../assets/images/baby-hockey.jpg';
 import Modal from '../modal/Modal';
 import useSteps from '../../hooks/useSteps';
+import AiIcon from './../../assets/icons/ai.png';
 
-import './slider.css';
+import Baby1 from './../../assets/images/reference-image.jpg';
+import Baby2 from './../../assets/images/reference-image2.jpg';
+import Baby3 from './../../assets/images/reference-image3.jpg';
+
+import Baby4 from './../../assets/images/football.jpg';
+import Baby5 from './../../assets/images/swat.jpg';
+import Baby6 from './../../assets/images/soccor.jpg';
+import Baby7 from './../../assets/images/hockey.jpg';
+
+import BabyVideo from './../../assets/videos/football.mp4';
+import BabyVideo2 from './../../assets/videos/swat.mp4';
+import BabyVideo3 from './../../assets/videos/soccor.mp4';
+import BabyVideo4 from './../../assets/videos/hockey.mp4';
+
+const sliderImages = [Baby1, Baby3, Baby2];
+const sliderItems = [Baby4, Baby5, Baby6, Baby7];
+const sliderVideos = [BabyVideo, BabyVideo2, BabyVideo3, BabyVideo4];
 
 function Slider() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isPlayingMini, setIsPlayingMini] = useState(false);
+  const [showModalMini, setShowModalMini] = useState(false);
+  const [miniVideoIndex, setMiniVideoIndex] = useState(0);
   const { openSteps } = useSteps();
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [activeBeforeSlide, setActiveBeforeSlide] = useState(0);
 
   function playVideo() {
     setIsPlaying(true);
     setShowModal(true);
   }
 
+  function playVideoMini(index) {
+    setIsPlayingMini(true);
+    setShowModalMini(true);
+    setMiniVideoIndex(index);
+  }
+
   const sliderBefor = {
     className: 'slider__before-slider',
     dots: false,
     slidesToShow: 3,
-    // rtl: true,
+    rtl: true,
     autoplay: false,
     arrows: false,
-    swipeToSlide: true,
-    speed: 500,
-    slidesToScroll: 1,
-    initialSlide: 0,
+    // swipeToSlide: true,
+    // slidesToScroll: 1,
+    initialSlide: 2,
+    beforeChange: (current, next) => {
+      setActiveBeforeSlide(next);
+    },
     responsive: [
       {
         breakpoint: 1024,
@@ -74,12 +93,16 @@ function Slider() {
     dots: false,
     slidesToShow: 4,
     // rtl: true,
+    // centerMode: true,
+    // variableWidth: true,
     autoplay: false,
     arrows: false,
     swipeToSlide: true,
-    speed: 500,
     slidesToScroll: 1,
     initialSlide: 0,
+    beforeChange: (current, next) => {
+      setActiveSlide(next);
+    },
     responsive: [
       {
         breakpoint: 1024,
@@ -109,13 +132,14 @@ function Slider() {
           <div className='preview'>
             <div className='preview-wrapper'>
               <div className='preview__image-client'>
-                <img src={Image1} alt='image' />
+                <img src={sliderImages[activeBeforeSlide]} alt='image' />
               </div>
               <div className='preview__image-transformed'>
-                <img src={BabyFootball} onClick={playVideo} alt='image' />
+                <img src={sliderItems[activeSlide]} onClick={playVideo} alt='image' />
                 <button onClick={playVideo} className='play-button'>
                   <FaPlay />
                 </button>
+                <div className='preview__image-overlay'></div>
               </div>
             </div>
             <div className='preview__icon'>
@@ -169,34 +193,20 @@ function Slider() {
           </div>
           <div className='slider__after'>
             <SlickSlider {...sliderAfter}>
-              <div>
-                <div className='slider__after-item'>
-                  <div className='slider__after-image'>
-                    <img src={Baby4} alt='Baby ' />
+              {sliderItems.map((item, i) => (
+                <div key={i}>
+                  <div className='slider__after-item'>
+                    <div className='slider__after-image'>
+                      <img src={item} alt='Baby ' />
+                      {i !== activeSlide && (
+                        <button onClick={() => playVideoMini(i)} className='slider__after-btn'>
+                          <FaPlay />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                <div className='slider__after-item'>
-                  <div className='slider__after-image'>
-                    <img src={Baby5} alt='Baby ' />
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className='slider__after-item'>
-                  <div className='slider__after-image'>
-                    <img src={Baby6} alt='Baby ' />
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className='slider__after-item'>
-                  <div className='slider__after-image'>
-                    <img src={Baby7} alt='Baby ' />
-                  </div>
-                </div>
-              </div>
+              ))}
             </SlickSlider>
           </div>
         </div>
@@ -207,16 +217,23 @@ function Slider() {
           <ReactPlayer
             width='100%'
             height='100%'
-            url={BabyVideo}
+            url={sliderVideos[activeSlide]}
             playing={isPlaying}
             controls
             playsinline
-            // light={BabyFootball}
-            // playIcon={
-            //   <button onClick={playVideo} className='play-button'>
-            //     <FaPlay />
-            //   </button>
-            // }
+          />
+        </div>
+      </Modal>
+
+      <Modal isOpen={showModalMini} onClose={() => setShowModalMini(false)}>
+        <div className='modal__video'>
+          <ReactPlayer
+            width='100%'
+            height='100%'
+            url={sliderVideos[miniVideoIndex]}
+            playing={isPlayingMini}
+            controls
+            playsinline
           />
         </div>
       </Modal>
