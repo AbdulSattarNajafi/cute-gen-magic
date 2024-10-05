@@ -34,7 +34,7 @@
   position: relative;
   width: 50%;
   height: 100%;
-  background: linear-gradient(to right, #00000080, #0000001a, #cc53fc4d, #6363fa4d);
+  background: linear-gradient(to right, #6363fa4d, #cc53fc4d, #0000001a, #00000080);
   padding: 2px;
   padding-right: 0;
   border-radius: 6px 0 0 0;
@@ -78,15 +78,14 @@
 }
 .preview__image-overlay {
   position: absolute;
-  inset: 0;
+  inset: 2px;
+  left: 0;
   background: linear-gradient(
     to right,
-    #1b181b,
-    #1b191ec5,
-    #1b191fac,
-    #1b1a218d,
-    #1c1a2360,
-    #1c1c2800
+    rgb(0, 0, 0, 0.65),
+    rgb(0, 0, 0, 0.35),
+    rgb(0, 0, 0, 0.1),
+    transparent
   );
   z-index: 2;
 }
@@ -206,7 +205,6 @@
     border-radius: 18px;
   }
   .preview__image-transformed {
-    padding: 2px;
     border-radius: 10px 20px 20px 0;
   }
   .preview__image-transformed img {
