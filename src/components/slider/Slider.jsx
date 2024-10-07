@@ -8,6 +8,9 @@ import Modal from '../modal/Modal';
 import useSteps from '../../hooks/useSteps';
 import AiIcon from './../../assets/icons/ai.png';
 
+import Baby from './../../assets/images/baby.png';
+import Football from './../../assets/images/football-2.png';
+
 import Baby1 from './../../assets/images/reference-image.jpg';
 import Baby2 from './../../assets/images/reference-image2.jpg';
 import Baby3 from './../../assets/images/reference-image3.jpg';
@@ -22,7 +25,7 @@ import BabyVideo2 from './../../assets/videos/swat.mp4';
 import BabyVideo3 from './../../assets/videos/soccor.mp4';
 import BabyVideo4 from './../../assets/videos/hockey.mp4';
 
-const sliderImages = [Baby1, Baby3, Baby2];
+// const sliderImages = [Baby1, Baby3, Baby2];
 const sliderItems = [Baby4, Baby5, Baby6, Baby7];
 const sliderVideos = [BabyVideo, BabyVideo2, BabyVideo3, BabyVideo4];
 
@@ -39,6 +42,7 @@ function Slider() {
   function playVideo() {
     setIsPlaying(true);
     setShowModal(true);
+    console.log(activeBeforeSlide);
   }
 
   function playVideoMini(index) {
@@ -132,10 +136,12 @@ function Slider() {
           <div className='preview'>
             <div className='preview-wrapper'>
               <div className='preview__image-client'>
-                <img src={sliderImages[activeBeforeSlide]} alt='image' />
+                {/* <img src={sliderImages[activeBeforeSlide]} alt='image' /> */}
+                <img src={Baby} alt='image' />
               </div>
               <div className='preview__image-transformed'>
-                <img src={sliderItems[activeSlide]} onClick={playVideo} alt='image' />
+                {/* <img src={sliderItems[activeSlide]} alt='image' /> */}
+                <img src={Football} onClick={playVideo} alt='image' />
                 <button onClick={playVideo} className='play-button'>
                   <FaPlay />
                 </button>
@@ -198,7 +204,7 @@ function Slider() {
                   <div className='slider__after-item'>
                     <div className='slider__after-image'>
                       <img src={item} alt='Baby ' />
-                      {i !== activeSlide && (
+                      {i !== 0 && (
                         <button onClick={() => playVideoMini(i)} className='slider__after-btn'>
                           <FaPlay />
                         </button>
